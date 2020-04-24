@@ -1,45 +1,52 @@
-// Define UI Vars
-const form = document.querySelector('#task-form');
-const taskList = document.querySelector('.collection');
-const clearBtn = document.querySelector('.clear-tasks');
-const filter = document.querySelector('#filter');
-const taskInput = document.querySelector('#task');
+// Defining variables for manipulation
+
+let form, taskList, clearBtn, filter, taskInput;
+
+form = document.querySelector("#task-form");
+taskList = document.querySelector(".collection");
+clearBtn = document.querySelector(".clear-tasks");
+filter = document.querySelector("#filter");
+taskInput = document.querySelector("#task");
+
 
 // Load all event listeners
+
 loadEventListeners();
 
-// Load all event listeners
 function loadEventListeners() {
   // Add task event
-  form.addEventListener('submit', addTask);
-}
+  form.addEventListener("submit", addTask);
+};
 
-// Add Task
+// Add task
+
 function addTask(e) {
-  if(taskInput.value === '') {
-    alert('Add a task');
+
+  // Prevent app from submitting empty value
+  if(taskInput.value === "") {
+    alert("Please insert correct value")
+  }
+  else {
+    // Create li element
+    let li = document.createElement("li");
+    // Add a class
+    li.className = "collection-item";
+    // Create text node and append to li
+    li.appendChild(document.createTextNode(taskInput.value.toUpperCase()));
+    // Create new link element
+    let link = document.createElement("a");
+    // Add class to link
+    link.className = "delete-item secondary-content";
+    // Add FontAwesome delete icon
+    link.innerHTML = '<i class="fa fa-remove"></i>';
+    // Append link to li
+    li.appendChild(link);
+    // Append li to ul
+    taskList.appendChild(li);
+    // Clear input after submission
+    taskInput.value = "";
   }
 
-  // Create li element
-  const li = document.createElement('li');
-  // Add class
-  li.className = 'collection-item';
-  // Create text node and append to li
-  li.appendChild(document.createTextNode(taskInput.value));
-  // Create new link element
-  const link = document.createElement('a');
-  // Add class
-  link.className = 'delete-item secondary-content';
-  // Add icon html
-  link.innerHTML = '<i class="fa fa-remove"></i>';
-  // Append the link to li
-  li.appendChild(link);
-
-  // Append li to ul
-  taskList.appendChild(li);
-
-  // Clear input
-  taskInput.value = '';
-
+  // Prevent default behaviour 
   e.preventDefault();
 }
